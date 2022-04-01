@@ -1,0 +1,31 @@
+1.product wise Average profit.
+	product_name =  test_file.groupby(['Product Name'],as_index=False).Profit.mean()
+	print(product_name)
+
+2.Highest sales city
+	city_name =  test_file.groupby(['City'],as_index=False).Sales.sum().sort_values(by='Sales',ascending=False)
+	print(city_name)
+
+3.product type wise total sales
+	product_type =  test_file.groupby(['Product Type'],as_index=False).Sales.sum()
+	print(product_type)
+
+4.List of Producs achieved sales target
+
+1st:
+test_file['Achieved_Sales']=test_file['Sales']-test_file['Target Sales']
+print(test_file)
+2nd:
+product_name = test_file.groupby(['Product Name'],as_index=False).Achieved_Sales.sum().sort_values(by='Achieved_Sales',ascending=False)
+print(product_name)
+3rd:
+sales_ach_products=product_name[product_name['Achieved_Sales']>0]
+print(sales_ach_products)
+4th:
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax = fig.add_axes([0,1,2,1])
+name = sales_ach_products['Product Name']
+Achieved_Sales = sales_ach_products['Achieved_Sales']
+ax.bar(name,Achieved_Sales)
+plt.show()
